@@ -1,9 +1,12 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useContext } from "react"
 import {useHttp} from "../hooks/http.hook"
 import { useMessage } from "../hooks/message.hook"
+import "./AuthPages.css"
+import {AuthContext} from "../context/AuthContext";
 
-export const AuthPages = () =>{
+export const AuthPages = ()  =>{
 	const message = useMessage()
+	const auth = useContext(AuthContext)
 	const {loading, request, error, clearError} = useHttp()
 	const [form, setForm] = useState({
 		email: "", password: ""
@@ -30,7 +33,7 @@ export const AuthPages = () =>{
 	const loginHandler = async () =>{
 		try{
 			const data = await request('/api/auth/login', 'POST', {...form})
-			console.log("Data", data)
+			auth.login(data.token, data.userId)
 		}
 		catch(e){
 		}
@@ -38,23 +41,26 @@ export const AuthPages = () =>{
 
 
 	return(
-		<div className="valign-wrapper">
-			<div className="row">
-			<div className="col s12 m12">
-			<div className="card #ef6c00 orange darken-3 darken-5 ">
-				<div className="card-content white-text">
-					<span className="card-title center">Survegana</span>
-						email:
-						<input id = "email" type="text" name="email" onChange={changeHandler}/>
-						password:
-						<input id = "password" type="password" name="password" onChange={changeHandler}/>
+		<div className="AuthPage">
+
+			<div className="valign-wrapper">
+				<div className="row">
+				<div className="col s12 m12">
+				<div className="card #ef6c00 orange darken-3 darken-5 ">
+					<div className="card-content white-text">
+						<span className="card-title center">Survegana</span>
+							email:
+							<input id = "email" type="text" name="email" onChange={changeHandler}/>
+							password:
+							<input id = "password" type="password" name="password" onChange={changeHandler}/>
+					</div>
+					<div className="card-action">
+							<input className = "waves-effect waves-light btn #ff9100 orange accent-31" type="submit" value="Log in" onClick={loginHandler} disabled={loading} />
+							<input className = "waves-effect waves-light btn #ff9100 orange accent-3" type="submit" value="Sign up" onClick={registerHandler} disabled={loading}/>
+					</div>
 				</div>
-				<div className="card-action">
-						<input className = "waves-effect waves-light btn #ff9100 orange accent-31" type="submit" value="Log in" onClick={loginHandler} disabled={loading} />
-						<input className = "waves-effect waves-light btn #ff9100 orange accent-3" type="submit" value="Sign up" onClick={registerHandler} disabled={loading}/>
 				</div>
-			</div>
-			</div>
+				</div>
 			</div>
 		</div>
 	)
