@@ -5,75 +5,184 @@ import * as Survey from "survey-react";
 Survey.StylesManager.applyTheme("modern");
 
 var json = {
-    "completedHtml": "<h3>Thank you for your feedback.</h3> <h5>Your thoughts and ideas will help us to create a great product!</h5>",
-    "completedHtmlOnCondition": [
-        {
-            "expression": "{nps_score} > 8",
-            "html": "<h3>Thank you for your feedback.</h3> <h5>We glad that you love our product. Your ideas and suggestions will help us to make our product even better!</h5>"
-        }, {
-            "expression": "{nps_score} < 7",
-            "html": "<h3>Thank you for your feedback.</h3> <h5> We are glad that you share with us your ideas.We highly value all suggestions from our customers. We do our best to improve the product and reach your expectation.</h5><br/>"
-        }
-    ],
+    "title": "Product/Market Fit Survey Template",
     "pages": [
         {
             "name": "page1",
             "elements": [
                 {
+                    "type": "radiogroup",
+                    "name": "customer_role",
+                    "title": "What best describes your role?",
+                    "hasOther": true,
+                    "choices": [
+                        "Engineering Lead",
+                        "Project Manager",
+                        "Software Developer",
+                        "Designer",
+                        "Product Manager",
+                        "CEO / Founder",
+                        "Customer Support"
+                    ],
+                    "otherText": "Other",
+                    "colCount": 3
+                }, {
+                    "type": "radiogroup",
+                    "name": "start_using",
+                    "title": "How did you start using the product?",
+                    "choices": [
+                        {
+                            "value": "created",
+                            "text": "I created my account"
+                        }, {
+                            "value": "invited",
+                            "text": "I was invited to an account"
+                        }
+                    ]
+                }, {
+                    "type": "radiogroup",
+                    "name": "product_discovering",
+                    "title": "How did you first discover the product? ",
+                    "hasOther": true,
+                    "choices": [
+                        "Friend or colleague", "Search engine", "Facebook", "Twitter", "Blog"
+                    ],
+                    "otherText": "Other",
+                    "colCount": 3
+                }, {
+                    "type": "radiogroup",
+                    "name": "paid_customer",
+                    "title": "Do you currently pay for the product? ",
+                    "isRequired": true,
+                    "choices": ["Yes", "No"]
+                }
+            ]
+        }, {
+            "name": "page2",
+            "elements": [
+                {
+                    "type": "radiogroup",
+                    "name": "product_fit",
+                    "title": "How would you feel if you could no longer use the product?",
+                    "isRequired": true,
+                    "choices": [
+                        {
+                            "value": "3",
+                            "text": "Very disappointed"
+                        }, {
+                            "value": "2",
+                            "text": "Somewhat disappointed"
+                        }, {
+                            "value": "1",
+                            "text": "Not disappointed"
+                        }
+                    ]
+                }, {
+                    "type": "comment",
+                    "name": "product_fit_comment",
+                    "visibleIf": "{product_fit} notempty",
+                    "title": "Please help us understand why you selected the answer above"
+                }
+            ]
+        }, {
+            "name": "page3",
+            "elements": [
+                {
+                    "type": "radiogroup",
+                    "name": "product_alternative",
+                    "title": "What would you use as an alternative if [the product] were no\nlonger available?",
+                    "hasOther": true,
+                    "choices": [
+                        "Alternative 1",
+                        "Alternative 2",
+                        "Alternative 3",
+                        "Alternative 4",
+                        "Alternative 5",
+                        "Alternative 6"
+                    ],
+                    "otherText": "Other (please name)",
+                    "colCount": 3
+                }, {
+                    "type": "radiogroup",
+                    "name": "product_benefit",
+                    "title": "What is the primary benefit that you have received from the\nproduct?",
+                    "hasOther": true,
+                    "choices": [
+                        "Benefit 1",
+                        "Benefit 2",
+                        "Benefit 3",
+                        "Benefit 4",
+                        "Benefit 5",
+                        "Benefit 6"
+                    ],
+                    "colCount": 3
+                }, {
+                    "type": "radiogroup",
+                    "name": "product_recommend",
+                    "title": "Have you recommended the product to anyone?",
+                    "choices": ["Yes", "No"]
+                }
+            ]
+        }, {
+            "name": "page4",
+            "elements": [
+                {
                     "type": "rating",
                     "name": "nps_score",
-                    "title": "On a scale of zero to ten, how likely are you to recommend our product to a friend or colleague?",
+                    "title": "How likely are you to recommend the product to a friend or\ncolleague? ",
                     "isRequired": true,
                     "rateMin": 0,
                     "rateMax": 10,
-                    "minRateDescription": "(Most unlikely)",
-                    "maxRateDescription": "(Most likely)"
+                    "minRateDescription": "Most unlikely",
+                    "maxRateDescription": "Most likely"
                 }, {
-                    "type": "checkbox",
-                    "name": "promoter_features",
-                    "visibleIf": "{nps_score} >= 9",
-                    "title": "What features do you value the most?",
-                    "isRequired": true,
-                    "validators": [
-                        {
-                            "type": "answercount",
-                            "text": "Please select two features maximum.",
-                            "maxCount": 2
-                        }
-                    ],
+                    "type": "radiogroup",
+                    "name": "favorite_functionality",
+                    "title": "What's your favorite functionality / add-on for the product?",
                     "hasOther": true,
                     "choices": [
-                        "Performance", "Stability", "User Interface", "Complete Functionality"
+                        "Feature 1",
+                        "Feature 2",
+                        "Feature 3",
+                        "Feature 4",
+                        "Feature 5",
+                        "Feature 6"
                     ],
-                    "otherText": "Other feature:",
-                    "colCount": 2
+                    "colCount": 3
                 }, {
                     "type": "comment",
-                    "name": "passive_experience",
-                    "visibleIf": "{nps_score} > 6  and {nps_score} < 9",
-                    "title": "What is the primary reason for your score?"
-                }, {
-                    "type": "comment",
-                    "name": "disappointed_experience",
-                    "visibleIf": "{nps_score} notempty",
-                    "title": "What do you miss and what was disappointing in your experience with us?"
+                    "name": "product_improvement",
+                    "title": "How could the product be improved to better meet your\nneeds?"
+                }
+            ]
+        }, {
+            "name": "page5",
+            "elements": [
+                {
+                    "type": "multipletext",
+                    "name": "contact_customer",
+                    "title": "Want us to follow-up? Leave your name and email here:",
+                    "items": [
+                        {
+                            "name": "Name"
+                        }, {
+                            "name": "E-mail",
+                            "inputType": "email",
+                            "validators": [
+                                {
+                                    "type": "email"
+                                }
+                            ]
+                        }
+                    ]
                 }
             ]
         }
-    ],
-    "showQuestionNumbers": "off"
+    ]
 };
 
 export const Card = ()=>{
     const survey = new Survey.Model(json);
-
-    survey
-        .onComplete
-        .add(function (result) {
-            document
-                .querySelector('#surveyResult')
-                .textContent = "Result JSON:\n" + JSON.stringify(result.data, null, 3);
-        });
 
     return(
         <div className="Card">
@@ -87,8 +196,9 @@ export const Card = ()=>{
                     </ul>
                 </div>
             </nav>
-
-            <Survey.Survey model={survey}/>
+            <div>
+                <Survey.Survey model={survey}/>
+            </div>
         </div>
     )
 }
