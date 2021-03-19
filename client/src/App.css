@@ -5,4 +5,8 @@ html
     margin: 0 auto;
     min-height: 1009px;
     min-width: 100%;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
 }

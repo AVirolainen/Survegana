@@ -1,7 +1,10 @@
 import React from "react"
+import Card from "../components/Card";
 
 export const MainPage = ()=>{
 	return(
-		<div>Hello main page</div>
+		<Card>
+
+		</Card>
 	)
 }
