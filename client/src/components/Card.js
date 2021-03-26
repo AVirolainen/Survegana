@@ -2,22 +2,14 @@ import React, {useContext, useState, useCallback, useEffect} from "react"
 import {AuthContext} from "../context/AuthContext";
 import {useHttp} from "../hooks/http.hook";
 import "./Card.css"
-import * as Survey from "survey-react";
-
-Survey.StylesManager.applyTheme("modern");
-
-// var json = {
-//
-//     surveyId: '5af48e08-a0a5-44a5-83f4-1c90e8e98de1'
-// };
-
+import SurveyLink from "./Survey/SurveyLink";
 
 export const Card = ()=>{
     const auth = useContext(AuthContext)
-    // const survey = new Survey.Model(json);
+
     const {loading, request} = useHttp()
 
-    const [surveys, setSurveys] = useState({})
+    const [surveys, setSurveys] = useState([])
 
     const logoutHandler = (event) =>{
         event.preventDefault()
@@ -27,19 +19,21 @@ export const Card = ()=>{
     const [links, setLinks] = useState([])
     const {token} = useContext(AuthContext)
 
-    const fetchLinks = useCallback(async () => {
+    let surveyList
+    const fetchSurveys = useCallback(async () => {
         try {
             const fetched = await request('/api/survey', 'GET', null, )
-            console.log(fetched)
-            setLinks(fetched)
+            setSurveys(fetched)
+
+            surveyList = surveys.map(item=>{
+                    <SurveyLink obj={item} />
+                })
         } catch (e) {}
     }, [token, request])
 
     useEffect(() => {
-        fetchLinks()
-    }, [fetchLinks])
-
-
+        fetchSurveys()
+    }, [fetchSurveys])
 
     return(
         <div className="Card">
@@ -51,14 +45,14 @@ export const Card = ()=>{
                         <li><a href="#">Створити опитування</a></li>
                         <li><a href="#">Підтримка</a></li>
                         <li><a href="#" onClick={logoutHandler}>Вийти</a></li>
-
                     </ul>
                 </div>
             </nav>
             <div className="header">Доступні опитування</div>
             <div>
-                {/*<Survey.Survey model={survey}/>*/}
+                <button onClick={() => console.log(surveys)}>nbr</button>
             </div>
+            {surveyList}
         </div>
     )
 }
