@@ -1,4 +1,4 @@
-import React, {useContext, useState, useCallback} from "react"
+import React, {useContext, useState, useCallback, useEffect} from "react"
 import {AuthContext} from "../context/AuthContext";
 import {useHttp} from "../hooks/http.hook";
 import "./Card.css"
@@ -24,17 +24,22 @@ export const Card = ()=>{
         auth.logout()
     }
 
-    const surveysHandler = async()=>{
-        try{
-            const fetched = await request("api/survey/", "GET", null)
-            setSurveys(fetched)
-        }
-        catch (e) {
+    const [links, setLinks] = useState([])
+    const {token} = useContext(AuthContext)
 
-        }
-    }
+    const fetchLinks = useCallback(async () => {
+        try {
+            const fetched = await request('/api/survey', 'GET', null, )
+            console.log(fetched)
+            setLinks(fetched)
+        } catch (e) {}
+    }, [token, request])
 
-    console.log(surveys)
+    useEffect(() => {
+        fetchLinks()
+    }, [fetchLinks])
+
+
 
     return(
         <div className="Card">
@@ -54,7 +59,6 @@ export const Card = ()=>{
             <div>
                 {/*<Survey.Survey model={survey}/>*/}
             </div>
-            <button onClick={surveysHandler}>тик</button>
         </div>
     )
 }
