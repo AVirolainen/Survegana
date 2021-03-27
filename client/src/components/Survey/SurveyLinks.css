@@ -1,0 +1,8 @@
+.linkItem{
+    margin: 10px 0px 10px 15px;
+    font-size: 24px;
+}
+
+.linkItem:hover{
+    opacity: 0.5;
+}

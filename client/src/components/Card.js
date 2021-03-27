@@ -1,8 +1,10 @@
 import React, {useContext, useState, useCallback, useEffect} from "react"
 import {AuthContext} from "../context/AuthContext";
 import {useHttp} from "../hooks/http.hook";
+import SurveyLinks from "./Survey/SurveyLinks";
 import "./Card.css"
-import SurveyLink from "./Survey/SurveyLink";
+import building from "../img/building.jpg"
+
 
 export const Card = ()=>{
     const auth = useContext(AuthContext)
@@ -24,10 +26,6 @@ export const Card = ()=>{
         try {
             const fetched = await request('/api/survey', 'GET', null, )
             setSurveys(fetched)
-
-            surveyList = surveys.map(item=>{
-                    <SurveyLink obj={item} />
-                })
         } catch (e) {}
     }, [token, request])
 
@@ -38,7 +36,7 @@ export const Card = ()=>{
     return(
         <div className="Card">
             <nav>
-                <div className="nav-wrapper #fbe9e7 deep-orange text-lighten-5">
+                <div className="nav-wrapper #757575 grey darken-1 text-lighten-5">
                     <a href="#" className="brand-logo right">Survegana </a>
                     <ul id="nav-mobile" className="left hide-on-med-and-down">
                         <li><a href="#">Особистий кабінет</a></li>
@@ -48,11 +46,13 @@ export const Card = ()=>{
                     </ul>
                 </div>
             </nav>
-            <div className="header">Доступні опитування</div>
-            <div>
-                <button onClick={() => console.log(surveys)}>nbr</button>
-            </div>
-            {surveyList}
+            <div className="cardBody">
+                <div>
+                    <div className="header">Доступні опитування</div>
+                    <SurveyLinks surveys={surveys} />
+                </div>
+                <img src={building} className="cardImage"/>
+                </div>
         </div>
     )
 }
