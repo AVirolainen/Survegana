@@ -1,4 +1,5 @@
-import React from "react"
+import React, {useState} from "react"
+import {useHttp} from "../../hooks/http.hook"
 import * as SurveyEngine from "survey-react";
 
 var defaultThemeColors = SurveyEngine
@@ -15,14 +16,32 @@ defaultThemeColors["$body-container-background-color"] = "#f8f8f8";
 SurveyEngine.StylesManager.applyTheme();
 
 
+
+
 const Survey = ({survey})=>{
     const surveyModel = new SurveyEngine.Model(survey);
+    const [surveyResult, setSurveyResult] = useState({})
+
+    const {loading, request} = useHttp()
 
     surveyModel
         .onComplete
         .add(function (result) {
-            console.log(JSON.stringify(result.data, null, 3))
+            let temp = JSON.parse(JSON.stringify(result.data))
+            temp["id"] = survey._id
+            setSurveyResult(temp)
+            pressHandler()
+            
         });
+    
+    const pressHandler = async event =>{
+        try{
+           await request('/api/survey/', "POST", {info: surveyResult})
+        }
+        catch (e) {
+            
+        }
+    }
 
     return(
         <SurveyEngine.Survey model={surveyModel} />
