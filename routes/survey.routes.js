@@ -4,8 +4,8 @@ const router = Router()
 
 router.get("/", async(req, res)=>{
     try{
-        const tests = await Survey.find()
-        res.json(tests)
+        const surveys = await Survey.find()
+        res.json(surveys)
     }
     catch (e) {
         res.status(500).json({message : "Something is wrong "})
