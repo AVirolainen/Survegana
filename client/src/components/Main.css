@@ -1,0 +1,29 @@
+.Card{
+    background-color: white;
+    margin: 0 auto;
+    width: 85%;
+    min-height: 900px;
+    border-radius: 30px;
+    box-shadow: 0 15px 35px -1px black;
+
+}
+
+.header{
+    margin: 10px 0px 10px 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 45px;
+    font-weight: 700;
+}
+
+.cardBody{
+    display: flex;
+    justify-content: space-between;
+}
+
+.cardImage{
+    margin-top: 20px;
+    margin-right: 10px;
+    float: right;
+    height: 100%;
+    width: 38%;
+}
