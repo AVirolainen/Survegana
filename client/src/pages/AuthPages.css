@@ -1,3 +1,29 @@
-.AuthPages{
+.form-wrapper{
+    text-align: center;
+    margin: 0 auto;
+    position: relative;
+}
+
+.form-header{
+    font-weight: 700;
+    font-size: 100px;
+
+}
+.header{
     display: flex;
+}
+.logo-image{
+    height: 500px;
+}
+.register-button{
+    margin-top: 15px;
+    width: 100%;
+}
+.login-form {
+    max-width: 350px;
+    margin: 0 auto;
+}
+
+.login-form-button {
+    width: 100%;
 }

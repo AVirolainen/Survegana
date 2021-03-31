@@ -38,9 +38,9 @@ export const Card = ()=>{
         <Router>
             <div className="Card">
                 <nav>
-                    <div className="nav-wrapper #757575 grey darken-1 text-lighten-5">
-                        <a href="#" className="brand-logo right">Survegana </a>
-                        <ul id="nav-mobile" className="left hide-on-med-and-down">
+                    <div className="">
+                        <a href="#">Survegana </a>
+                        <ul>
                             <li><a href="#">Особистий кабінет</a></li>
                             <li><a href="#">Створити опитування</a></li>
                             <li><a href="#">Підтримка</a></li>

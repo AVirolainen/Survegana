@@ -1,12 +1,10 @@
-// import * as Survey from "survey-react";
+// <div className="AuthPage">
+//     email
+//     <input id = "email" type="text" name="email" onChange={changeHandler}/>
+//     password:
+//     <input id = "password" type="password" name="password" onChange={changeHandler}/>
+//     <input type="submit" value="Log in" onClick={loginHandler} disabled={loading} />
 //
-// Survey.StylesManager.applyTheme("modern");
 //
-// var json = {
 //
-//     surveyId: '5af48e08-a0a5-44a5-83f4-1c90e8e98de1'
-// };
-//
-// const survey = new Survey.Model(json);
-//
-// <Survey.Survey model={survey}
+// </div>

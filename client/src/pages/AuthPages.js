@@ -3,6 +3,10 @@ import {useHttp} from "../hooks/http.hook"
 import { useMessage } from "../hooks/message.hook"
 import "./AuthPages.css"
 import {AuthContext} from "../context/AuthContext";
+import {Form, Input, Button, Checkbox} from "antd"
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import logo from "../img/logo.png"
+import building from "../img/building.jpg";
 
 export const AuthPages = ()  =>{
 	const message = useMessage()
@@ -41,27 +45,58 @@ export const AuthPages = ()  =>{
 
 
 	return(
-		<div className="AuthPage">
+		<div className="form-wrapper">
+				<img src={logo} className="logo-image"/>
+			<Form
+				name="normal_login"
+				className="login-form"
+				initialValues={{
+					remember: true,
+				}}
+			>
+				<Form.Item
+					name="username"
+					rules={[
+						{
+							required: true,
+							message: 'Please input your Username!',
+						},
+					]}
+				>
+					<Input id = "email" type="text" name="email" onChange={changeHandler} prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+				</Form.Item>
+				<Form.Item
+					name="password"
+					rules={[
+						{
+							required: true,
+							message: 'Please input your Password!',
+						},
+					]}
+				>
+					<Input
+						id = "password" type="password" name="password" onChange={changeHandler}  prefix={<LockOutlined className="site-form-item-icon" />} placeholder="Password"
+					/>
+				</Form.Item>
+				<Form.Item>
+					<Form.Item name="remember" valuePropName="checked" noStyle>
+						<Checkbox>Remember me</Checkbox>
+					</Form.Item>
 
-			<div className="valign-wrapper">
-				<div className="row">
-				<div className="col s12 m12">
-				<div className="card #ef6c00 orange darken-3 darken-5 ">
-					<div className="card-content white-text">
-						<span className="card-title center">Survegana</span>
-							email:
-							<input id = "email" type="text" name="email" onChange={changeHandler}/>
-							password:
-							<input id = "password" type="password" name="password" onChange={changeHandler}/>
-					</div>
-					<div className="card-action">
-							<input className = "waves-effect waves-light btn #ff9100 orange accent-31" type="submit" value="Log in" onClick={loginHandler} disabled={loading} />
-							<input className = "waves-effect waves-light btn #ff9100 orange accent-3" type="submit" value="Sign up" onClick={registerHandler} disabled={loading}/>
-					</div>
-				</div>
-				</div>
-				</div>
-			</div>
+					<a className="login-form-forgot" href="">
+						Forgot password
+					</a>
+				</Form.Item>
+
+				<Form.Item>
+					<Button type="primary" htmlType="submit" className="login-form-button" value="Log in" onClick={loginHandler} disabled={loading}>
+						Log in
+					</Button>
+					<Button type="primary" htmlType="submit" className="register-button" value="Register " onClick={registerHandler} disabled={loading}>
+						Register
+					</Button>
+				</Form.Item>
+			</Form>
 		</div>
 	)
 }
