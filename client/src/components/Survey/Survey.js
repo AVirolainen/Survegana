@@ -2,20 +2,18 @@ import React, {useState} from "react"
 import {useHttp} from "../../hooks/http.hook"
 import * as SurveyEngine from "survey-react";
 
-var defaultThemeColors = SurveyEngine
+SurveyEngine.defaultBootstrapMaterialCss.navigationButton = "btn btn-green";
+SurveyEngine.defaultBootstrapMaterialCss.rating.item = "btn btn-default my-rating";
+SurveyEngine
     .StylesManager
-    .ThemeColors["default"];
-defaultThemeColors["$main-color"] = "#7ff07f";
-defaultThemeColors["$main-hover-color"] = "#6fe06f";
-defaultThemeColors["$text-color"] = "#4a4a4a";
-defaultThemeColors["$header-color"] = "#7ff07f";
+    .applyTheme("bootstrapmaterial");
 
-defaultThemeColors["$header-background-color"] = "#4a4a4a";
-defaultThemeColors["$body-container-background-color"] = "#f8f8f8";
-
-SurveyEngine.StylesManager.applyTheme();
-
-
+var myCss = {
+    matrix: {
+        root: "table table-striped"
+    },
+    navigationButton: "button btn-lg"
+};
 
 
 const Survey = ({survey})=>{

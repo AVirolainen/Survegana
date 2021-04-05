@@ -4,8 +4,8 @@ import {useHttp} from "../hooks/http.hook";
 import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 import SurveyLinks from "./Survey/SurveyLinks";
 import "./Main.css"
-import building from "../img/building.jpg"
 import Survey from "./Survey/Survey";
+import Statistics from "./Statistics/Statistics";
 import { Layout, Menu } from 'antd';
 import {
     MenuUnfoldOutlined,
@@ -14,6 +14,9 @@ import {
     VideoCameraOutlined,
     UploadOutlined,
 } from '@ant-design/icons';
+import SupportPage from "./Support/SupportPage";
+import CreationPage from "./Creator/CreationPage";
+import UserPage from "./UserPage/UserPage";
 
 
 export const Main = ()=>{
@@ -25,7 +28,6 @@ export const Main = ()=>{
 
 
     const logoutHandler = (event) =>{
-        event.preventDefault()
         auth.logout()
     }
 
@@ -54,13 +56,19 @@ export const Main = ()=>{
                     <div className="logo" />
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
                         <Menu.Item key="1" icon={<UserOutlined />}>
-                            Особистий кабінет
+                            <Link to="/user">Особистий кабінет</Link>
                         </Menu.Item>
                         <Menu.Item key="2" icon={<VideoCameraOutlined />}>
-                            Створити опитування
+                            <Link to="/create">Створити опитування</Link>
                         </Menu.Item>
                         <Menu.Item key="3" icon={<UploadOutlined />}>
-                            Підтримка
+                            <Link to="/support">Підтримка</Link>
+                        </Menu.Item>
+                        <Menu.Item key="4" icon={<VideoCameraOutlined />}>
+                            <Link to="/statistic">Статистика опитувань</Link>
+                        </Menu.Item>
+                        <Menu.Item key="5" icon={<UserOutlined />} onClick={logoutHandler}>
+                            Вийти
                         </Menu.Item>
                     </Menu>
                 </Sider>
@@ -77,6 +85,7 @@ export const Main = ()=>{
                             margin: '24px 16px',
                             padding: 24,
                             minHeight: 280,
+
                         }}
                     >
                         <Switch>
@@ -86,7 +95,6 @@ export const Main = ()=>{
                                         <div className="header">Доступні опитування</div>
                                         <SurveyLinks surveys={surveys} />
                                     </div>
-                                    <img src={building} className="cardImage"/>
                                 </div>
                             </Route>
                             {
@@ -99,6 +107,11 @@ export const Main = ()=>{
                                     )
                                 })
                             }
+                            <Route path="/statistic" component={Statistics} />
+                            <Route path="/support" component={SupportPage} />
+                            <Route path="/create" component={CreationPage} />
+                            <Route path="/user" component={UserPage} />
+
                         </Switch>
                     </Content>
                 </Layout>
