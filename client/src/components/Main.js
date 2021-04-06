@@ -55,19 +55,22 @@ export const Main = ()=>{
                 <Sider trigger={null} collapsible collapsed={state.collapsed}>
                     <div className="logo" />
                     <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-                        <Menu.Item key="1" icon={<UserOutlined />}>
+                        <Menu.Item key="1" icon={<UploadOutlined />}>
+                            <Link to="/main">Головна сторінка</Link>
+                        </Menu.Item>
+                        <Menu.Item key="2" icon={<UserOutlined />}>
                             <Link to="/user">Особистий кабінет</Link>
                         </Menu.Item>
-                        <Menu.Item key="2" icon={<VideoCameraOutlined />}>
+                        <Menu.Item key="3" icon={<VideoCameraOutlined />}>
                             <Link to="/create">Створити опитування</Link>
                         </Menu.Item>
-                        <Menu.Item key="3" icon={<UploadOutlined />}>
+                        <Menu.Item key="4" icon={<UploadOutlined />}>
                             <Link to="/support">Підтримка</Link>
                         </Menu.Item>
-                        <Menu.Item key="4" icon={<VideoCameraOutlined />}>
+                        <Menu.Item key="5" icon={<VideoCameraOutlined />}>
                             <Link to="/statistic">Статистика опитувань</Link>
                         </Menu.Item>
-                        <Menu.Item key="5" icon={<UserOutlined />} onClick={logoutHandler}>
+                        <Menu.Item key="6" icon={<UserOutlined />} onClick={logoutHandler}>
                             Вийти
                         </Menu.Item>
                     </Menu>
@@ -91,7 +94,7 @@ export const Main = ()=>{
                         <Switch>
                             <Route exact path="/main">
                                 <div className="cardBody">
-                                    <div>
+                                    <div className="bodyWrapper">
                                         <div className="header">Доступні опитування</div>
                                         <SurveyLinks surveys={surveys} />
                                     </div>

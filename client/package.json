@@ -12,7 +12,10 @@
     "react-dom": "^17.0.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "survey-creator": "^1.8.40",
+    "survey-knockout": "^1.8.40",
     "survey-react": "^1.8.36",
+    "surveyjs-widgets": "^1.8.40",
     "web-vitals": "^1.1.0"
   },
   "scripts": {
@@ -39,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "jquery": "^3.6.0"
   }
 }

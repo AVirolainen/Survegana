@@ -10,8 +10,11 @@
 
 .header{
     font-family: 'Open Sans', sans-serif;
-    font-size: 45px;
+    font-size: 64px;
     font-weight: 700;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
 }
 
 .trigger {
@@ -28,7 +31,9 @@
 
 .cardBody{
     display: flex;
+    justify-content: center;
 }
+
 
 .logo {
     height: 32px;

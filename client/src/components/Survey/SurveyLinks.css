@@ -1,13 +1,20 @@
 .linkItem{
-    margin: 10px 0px 10px 15px;
-    font-size: 24px;
+    margin: auto;
+    font-size: 28px;
 }
 
 .linkItem:hover{
     opacity: 0.5;
 }
 
-.code-box-demo p {
-    margin: 0;
+.surveyImage{
+    float: right;
+    width: 300px;
 }
+
+.surveyText{
+    font-size: 20px;
+    margin-right: 30px;
+}
+
 .ant-card { margin-bottom: 30px; }
