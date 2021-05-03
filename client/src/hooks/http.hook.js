@@ -1,3 +1,4 @@
+  
 import {useState, useCallback} from 'react'
 
 export const useHttp = () => {
@@ -16,7 +17,7 @@ export const useHttp = () => {
       const data = await response.json()
 
       if (!response.ok) {
-        throw new Error(data.message || 'Something goes wrong')
+        throw new Error(data.message || 'Что-то пошло не так')
       }
 
       setLoading(false)

@@ -1,4 +1,4 @@
-import React, {useState} from "react"
+import React, {useState, useEffect} from "react"
 import {useHttp} from "../../hooks/http.hook"
 import * as SurveyEngine from "survey-react";
 
@@ -28,18 +28,25 @@ const Survey = ({survey})=>{
             let temp = JSON.parse(JSON.stringify(result.data))
             temp["id"] = survey._id
             setSurveyResult(temp)
-            pressHandler()
+          
+            console.log(temp)
             
         });
     
-    const pressHandler = async event =>{
-        try{
-           await request('/api/survey/', "POST", {info: surveyResult})
+    useEffect(() => {
+        const pressHandler = async event =>{
+            try{
+               await request('/api/survey/test', "POST", {info: surveyResult})
+            }
+            catch (e) {
+                
+            }
         }
-        catch (e) {
-            
-        }
-    }
+        pressHandler()
+        
+    }, [surveyResult]);
+
+
 
     return(
         <SurveyEngine.Survey model={surveyModel} />

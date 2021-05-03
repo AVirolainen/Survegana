@@ -1,17 +1,20 @@
 const {Router} = require('express')
 const Survey = require("../models/Survey")
 const User = require("../models/User")
+const Answer = require("../models/Answer")
 const router = Router()
 
-router.post("/:id", async(req, res)=>{
+router.post("/*", async(req, res)=>{
     try{
         const {info} = req.body
-        await Survey.aggregate([
-            {$match: {_id: info.id}},
-            {$addFields : {$concatArrays : ["$homework", [info]]}}
-        ])
+        console.log(info)
+        const answer = new Answer({
+            surveyId: info.id,
+            answers: info
+        })
+        await answer.save()
 
-
+        res.status(201).json({ answer })
     }
     catch (e) {
         res.status(500).json({message : "Something is wrong "})
