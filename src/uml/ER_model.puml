@@ -1,0 +1,36 @@
+@startuml
+entity User <<ENTITY>> {
+    id:INT
+    username:TEXT
+    role:TEXT
+    data:INT
+  }
+
+
+  entity Survey <<ENTITY>>{
+    id:INT
+    name:TEXT
+    topic:TEXT
+  }
+
+  entity Question <<ENTITY>>{
+    id:INT
+    type:INT
+    text:TEXT
+  }
+
+  entity Answer <<ENTITY>> {
+    id:INT
+    text:TEXT
+  }
+
+  entity PossibleAnswers <<ENTITY>> {
+    id:INT
+    text:TEXT
+  }
+
+  Question "0, *" -u- "1, 1" Survey
+  Answer "0, *" -u- "0, 1" PossibleAnswers
+  Answer "0, *" -u- "1, 1" User
+  PossibleAnswers "0, *" -u- "1, 1" Question
+@enduml
