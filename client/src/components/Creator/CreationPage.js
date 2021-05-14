@@ -21,6 +21,11 @@ import "pretty-checkbox/dist/pretty-checkbox.css";
 
 import * as widgets from "surveyjs-widgets";
 
+import CreateHandler from "./CreateHandler"
+
+import {useHttp} from "../../hooks/http.hook"
+
+
 SurveyJSCreator.StylesManager.applyTheme("default");
 
 //widgets.icheck(SurveyKo, $);
@@ -36,9 +41,25 @@ widgets.sortablejs(SurveyKo);
 widgets.ckeditor(SurveyKo);
 widgets.autocomplete(SurveyKo, $);
 
+function withMyHook(Component) {
+    return function WrappedComponent(props) {
+      const {loading, request} = useHttp();
+      return <Component {...props} loading={loading} request={request}/>;
+    }
+  }
+
 
 class CreationPage extends Component{
     surveyCreator;
+    constructor(props) {
+        super(props);
+        this.state = {};  
+        this.request = props.request
+        this.loading = props.loading
+    
+        
+    }
+
     componentDidMount() {
         let options = { showEmbededSurveyTab: true };
         this.surveyCreator = new SurveyJSCreator.SurveyCreator(
@@ -58,17 +79,25 @@ class CreationPage extends Component{
         this.surveyCreator.render("surveyCreatorContainer");
     }
     render() {
+
         return (<div>
             <script type="text/html" id="custom-tab-survey-templates">
                 {`<div id="test">TEST</div>`}
             </script>
-
             <div id="surveyCreatorContainer" />
+
         </div>);
     }
-    saveMySurvey = () => {
-        console.log(JSON.stringify(this.surveyCreator.text));
-    };
+
+    saveMySurvey = async event =>{
+        try{
+            console.log(JSON.parse(this.surveyCreator.text))
+           await this.request('/api/create/create', "POST", {info: JSON.parse(this.surveyCreator.text)})
+        }
+        catch (e) {
+            
+        }
+    }
 }
 
-export default CreationPage
+export default withMyHook(CreationPage)

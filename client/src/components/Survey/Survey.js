@@ -1,19 +1,13 @@
 import React, {useState, useEffect} from "react"
 import {useHttp} from "../../hooks/http.hook"
 import * as SurveyEngine from "survey-react";
+import 'survey-knockout/modern.css'
 
-SurveyEngine.defaultBootstrapMaterialCss.navigationButton = "btn btn-green";
-SurveyEngine.defaultBootstrapMaterialCss.rating.item = "btn btn-default my-rating";
+// SurveyEngine.defaultBootstrapMaterialCss.navigationButton = "btn btn-green";
+// SurveyEngine.defaultBootstrapMaterialCss.rating.item = "btn btn-default my-rating";
 SurveyEngine
     .StylesManager
-    .applyTheme("bootstrapmaterial");
-
-var myCss = {
-    matrix: {
-        root: "table table-striped"
-    },
-    navigationButton: "button btn-lg"
-};
+    .applyTheme("modern");
 
 
 const Survey = ({survey})=>{

@@ -1,14 +1,29 @@
-import React, {useState} from "react"
+import React, {useState, useCallback, useEffect} from "react"
 import "./Statistics.css"
 import { TreeSelect } from 'antd';
+import {useHttp} from "../../hooks/http.hook";
 
 const Statistics = () =>{
     const { TreeNode } = TreeSelect;
-
     const [value, setValue] = useState(undefined);
+
+    const {loading, request} = useHttp()
+    const [surveys, setSurveys] = useState([])
+
     const onChange = () => {
         setValue(value);
     };
+
+    const fetchSurveys = useCallback(async () => {
+        try {
+            const fetched = await request('/api/survey', 'GET', null, )
+            setSurveys(fetched)
+        } catch (e) {}
+    }, [request])
+
+    useEffect(() => {
+        fetchSurveys()
+    }, [fetchSurveys])
 
     return(
         <div className="statisticBody">
@@ -23,15 +38,12 @@ const Statistics = () =>{
                 treeDefaultExpandAll
                 onChange={onChange}
             >
-                <TreeNode value="parent 1" title="parent 1">
-                    <TreeNode value="parent 1-0" title="parent 1-0">
-                        <TreeNode value="leaf1" title="leaf1" />
-                        <TreeNode value="leaf2" title="leaf2" />
-                    </TreeNode>
-                    <TreeNode value="parent 1-1" title="parent 1-1">
-                        <TreeNode value="leaf3" title={<b style={{ color: '#08c' }}>leaf3</b>} />
-                    </TreeNode>
-                </TreeNode>
+                {
+                    surveys.map(item=>{
+                        return(
+                        <TreeNode value={item.title} title={item.title}></TreeNode>)
+                    })
+                }
             </TreeSelect>
         </div>
 
