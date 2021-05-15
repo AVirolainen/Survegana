@@ -40,8 +40,6 @@ const Survey = ({survey})=>{
         
     }, [surveyResult]);
 
-
-
     return(
         <SurveyEngine.Survey model={surveyModel} />
     )
