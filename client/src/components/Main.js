@@ -18,8 +18,11 @@ import SupportPage from "./Support/SupportPage";
 import CreationPage from "./Creator/CreationPage";
 import UserPage from "./UserPage/UserPage";
 
-
-export const Main = ()=>{
+/** Component that render Main page
+ * @function
+ * 
+*/
+export const Main =()=>{
     const { Header, Sider, Content } = Layout;
     const auth = useContext(AuthContext)
     const {loading, request} = useHttp()
@@ -32,8 +35,7 @@ export const Main = ()=>{
     }
 
     const {token} = useContext(AuthContext)
-
-
+    
     const fetchSurveys = useCallback(async () => {
         try {
             const fetched = await request('/api/survey', 'GET', null, )

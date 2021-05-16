@@ -2,6 +2,7 @@ import {useState, useCallback, useEffect} from 'react'
 
 const storageName = 'userData'
 
+/** Custom hook that authenticates user*/
 export const useAuth = () => {
     const [token, setToken] = useState(null)
     const [ready, setReady] = useState(false)

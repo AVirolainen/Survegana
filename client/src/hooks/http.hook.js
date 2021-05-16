@@ -1,6 +1,7 @@
   
 import {useState, useCallback} from 'react'
 
+/** Custom hook for requests*/
 export const useHttp = () => {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)

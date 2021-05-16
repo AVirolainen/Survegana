@@ -10,6 +10,10 @@ SurveyEngine
     .applyTheme("modern");
 
 
+/** Function that render survey
+ * @function
+ * @param {object} survey - survey in the format of json
+*/
 const Survey = ({survey})=>{
     const surveyModel = new SurveyEngine.Model(survey);
     const [surveyResult, setSurveyResult] = useState({})

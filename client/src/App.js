@@ -6,6 +6,7 @@ import './App.css'
 import "materialize-css"
 import {AuthContext} from "./context/AuthContext";
 
+/** Function that starts client */
 function App() {
     const {token, login, logout, userId} = useAuth()
     const isAuthenticated = !!token

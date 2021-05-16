@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: client/src/components/Main.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: client/src/components/Main.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, {useContext, useState, useCallback, useEffect} from "react"
+import {AuthContext} from "../context/AuthContext";
+import {useHttp} from "../hooks/http.hook";
+import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
+import SurveyLinks from "./Survey/SurveyLinks";
+import "./Main.css"
+import Survey from "./Survey/Survey";
+import Statistics from "./Statistics/Statistics";
+import { Layout, Menu } from 'antd';
+import {
+    MenuUnfoldOutlined,
+    MenuFoldOutlined,
+    UserOutlined,
+    VideoCameraOutlined,
+    UploadOutlined,
+} from '@ant-design/icons';
+import SupportPage from "./Support/SupportPage";
+import CreationPage from "./Creator/CreationPage";
+import UserPage from "./UserPage/UserPage";
+
+/** Component that render Main page
+ * @function
+ * 
+*/
+export const Main =()=>{
+    const { Header, Sider, Content } = Layout;
+    const auth = useContext(AuthContext)
+    const {loading, request} = useHttp()
+    const [surveys, setSurveys] = useState([])
+    const [state, setState] = useState({collapsed: false})
+
+
+    const logoutHandler = (event) =>{
+        auth.logout()
+    }
+
+    const {token} = useContext(AuthContext)
+    
+    const fetchSurveys = useCallback(async () => {
+        try {
+            const fetched = await request('/api/survey', 'GET', null, )
+            setSurveys(fetched)
+        } catch (e) {}
+    }, [token, request])
+
+    useEffect(() => {
+        fetchSurveys()
+    }, [fetchSurveys])
+
+    const toggle = ()=>{
+        setState({collapsed: !state.collapsed})
+    }
+
+    return(
+        &lt;Router>
+            &lt;Layout>
+                &lt;Sider trigger={null} collapsible collapsed={state.collapsed}>
+                    &lt;div className="logo" />
+                    &lt;Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+                        &lt;Menu.Item key="1" icon={&lt;UploadOutlined />}>
+                            &lt;Link to="/main">Головна сторінка&lt;/Link>
+                        &lt;/Menu.Item>
+                        &lt;Menu.Item key="2" icon={&lt;UserOutlined />}>
+                            &lt;Link to="/user">Особистий кабінет&lt;/Link>
+                        &lt;/Menu.Item>
+                        &lt;Menu.Item key="3" icon={&lt;VideoCameraOutlined />}>
+                            &lt;Link to="/create">Створити опитування&lt;/Link>
+                        &lt;/Menu.Item>
+                        &lt;Menu.Item key="4" icon={&lt;UploadOutlined />}>
+                            &lt;Link to="/support">Підтримка&lt;/Link>
+                        &lt;/Menu.Item>
+                        &lt;Menu.Item key="5" icon={&lt;VideoCameraOutlined />}>
+                            &lt;Link to="/statistic">Статистика опитувань&lt;/Link>
+                        &lt;/Menu.Item>
+                        &lt;Menu.Item key="6" icon={&lt;UserOutlined />} onClick={logoutHandler}>
+                            Вийти
+                        &lt;/Menu.Item>
+                    &lt;/Menu>
+                &lt;/Sider>
+                &lt;Layout className="site-layout">
+                    &lt;Header className="site-layout-background" style={{ padding: 0 }}>
+                        {React.createElement(state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+                            className: 'trigger',
+                            onClick: toggle,
+                        })}
+                    &lt;/Header>
+                    &lt;Content
+                        className="site-layout-background"
+                        style={{
+                            margin: '24px 16px',
+                            padding: 24,
+                            minHeight: 280,
+
+                        }}
+                    >
+                        &lt;Switch>
+                            &lt;Route exact path="/main">
+                                &lt;div className="cardBody">
+                                    &lt;div className="bodyWrapper">
+                                        &lt;div className="header">Доступні опитування&lt;/div>
+                                        &lt;SurveyLinks surveys={surveys} />
+                                    &lt;/div>
+                                &lt;/div>
+                            &lt;/Route>
+                            {
+                                surveys.map((link, index)=>{
+                                    let address = "/"+link._id
+                                    return(
+                                        &lt;Route path={address}>
+                                            &lt;Survey survey={link}/>
+                                        &lt;/Route>
+                                    )
+                                })
+                            }
+                            &lt;Route path="/statistic" component={Statistics} />
+                            &lt;Route path="/support" component={SupportPage} />
+                            &lt;Route path="/create" component={CreationPage} />
+                            &lt;Route path="/user" component={UserPage} />
+
+                        &lt;/Switch>
+                    &lt;/Content>
+                &lt;/Layout>
+            &lt;/Layout>
+        &lt;/Router>
+    )
+}
+
+export default Main
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CreationPage.html">CreationPage</a></li><li><a href="StatisticContainer.html">StatisticContainer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#App">App</a></li><li><a href="global.html#Main">Main</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#Statistics">Statistics</a></li><li><a href="global.html#Survey">Survey</a></li><li><a href="global.html#SurveyLinks">SurveyLinks</a></li><li><a href="global.html#useAuth">useAuth</a></li><li><a href="global.html#useHttp">useHttp</a></li><li><a href="global.html#useMessage">useMessage</a></li><li><a href="global.html#useRoutes">useRoutes</a></li><li><a href="global.html#withMyHook">withMyHook</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun May 16 2021 13:51:00 GMT+0300 (GMT+03:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

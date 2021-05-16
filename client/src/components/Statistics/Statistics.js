@@ -12,6 +12,10 @@ import 'antd/dist/antd.css';
 import { Button } from 'antd';
 import StatisticContainer from "./StatisticContainer"
 
+/**
+ * Component that render Statistics page
+ * @function
+*/
 const Statistics = () =>{
     const { TreeNode } = TreeSelect;
     const [value, setValue] = useState(undefined);

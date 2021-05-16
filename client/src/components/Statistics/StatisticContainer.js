@@ -12,12 +12,22 @@ import * as Survey from "survey-react";
 
 
 
-
+/** 
+ *Component-container fro statistic
+ @class
+*/
 class StatisticContainer extends Component {
+    /** 
+     * @param {*} props - properties, that contained request method
+    */
     constructor() {
         super();
     }
 
+    
+    /** 
+     *Method that mount the component
+    */
     componentDidMount() {
         console.log(this.props.survey)
         console.log(this.props.answer)
@@ -36,7 +46,10 @@ class StatisticContainer extends Component {
         visPanel.showHeader = true;
         visPanel.render(document.getElementById("surveyResult"));
     }
-
+    
+    /** 
+     *Method that renders component
+    */
     render() {
         return (
             <div id="surveyResult"></div>

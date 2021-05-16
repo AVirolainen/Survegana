@@ -4,6 +4,10 @@ import {Link} from "react-router-dom";
 import { Card } from 'antd';
 import surveyImage from "../../img/surveyImage.jpeg"
 
+/** Function that generate survey link
+ * @function
+ * @param {object} surveys - survey in the format of json
+*/
 const SurveyLinks =({surveys})=>{
     return(
         <div>

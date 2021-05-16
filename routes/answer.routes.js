@@ -4,6 +4,9 @@ const User = require("../models/User")
 const Answer = require("../models/Answer")
 const router = Router()
 
+/**
+ * @function
+ */
 router.get("/*", async(req, res)=>{
     try{
         const surveys = await Answer.find()
@@ -14,8 +17,5 @@ router.get("/*", async(req, res)=>{
     }
 })
 
-/** Get request */
-const a = ()=>{
-    return 0
-}
+
 module.exports = router;
