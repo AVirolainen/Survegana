@@ -14,4 +14,8 @@ router.get("/*", async(req, res)=>{
     }
 })
 
+/** Get request */
+const a = ()=>{
+    return 0
+}
 module.exports = router;

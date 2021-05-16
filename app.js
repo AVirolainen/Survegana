@@ -12,6 +12,8 @@ app.use('/api/survey', require('./routes/survey.routes'))
 app.use('/api/create', require('./routes/create.routes'))
 app.use('/api/answers', require('./routes/answer.routes'))
 
+
+/** This function starts the server and connect database */
 async function start(){
   try{
     await mongoose.connect(config.get("mongoUri"), {
