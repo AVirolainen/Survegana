@@ -5,7 +5,10 @@ const Answer = require("../models/Answer")
 const router = Router()
 
 /**
+ * Router (GET) that makes request to database to get available answers
+ * @name AnswersRouter
  * @function
+ * @global
  */
 router.get("/*", async(req, res)=>{
     try{

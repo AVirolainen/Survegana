@@ -4,6 +4,13 @@ const User = require("../models/User")
 const Answer = require("../models/Answer")
 const router = Router()
 
+/**
+ * Router (POST) that makes request to database to create survey
+ * @name CreateRouter
+ * @function
+ * @global
+ * @param {object} survey - survey
+ */
 router.post("/create", async(req, res)=>{
     try{
         const {info} = req.body

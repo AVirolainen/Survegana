@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: routes/answer.routes.js</title>
+    <title>JSDoc: Source: routes/survey.routes.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: routes/answer.routes.js</h1>
+    <h1 class="page-title">Source: routes/survey.routes.js</h1>
 
     
 
@@ -32,22 +32,40 @@ const User = require("../models/User")
 const Answer = require("../models/Answer")
 const router = Router()
 
-/**
- * Router (GET) that makes request to database to get available answers
- * @name AnswersRouter
- * @function
- * @global
- */
-router.get("/*", async(req, res)=>{
+
+
+router.post("/*", async(req, res)=>{
     try{
-        const surveys = await Answer.find()
-        res.json(surveys)
+        const {info} = req.body
+        console.log(info)
+        const answer = new Answer({
+            surveyId: info.id,
+            answers: info
+        })
+        await answer.save()
+
+        res.status(201).json({ answer })
     }
     catch (e) {
         res.status(500).json({message : "Something is wrong "})
     }
 })
 
+/**
+ * Router (Get) that makes request to database to get available surveys
+ * @name GetRouter
+ * @function
+ * @global
+ */
+router.get("/", async(req, res)=>{
+    try{
+        const surveys = await Survey.find()
+        res.json(surveys)
+    }
+    catch (e) {
+        res.status(500).json({message : "Something is wrong "})
+    }
+})
 
 module.exports = router;</code></pre>
         </article>

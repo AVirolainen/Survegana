@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: client/src/pages/AuthPages.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: client/src/pages/AuthPages.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import React, { useEffect, useState, useContext } from "react"
+import {useHttp} from "../hooks/http.hook"
+import { useMessage } from "../hooks/message.hook"
+import "./AuthPages.css"
+import {AuthContext} from "../context/AuthContext";
+import {Form, Input, Button, Checkbox} from "antd"
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import logo from "../img/logo.png"
+import building from "../img/building.jpg";
+
+/** Function that render Auth page
+ * @function
+ * 
+*/
+export const AuthPages = ()  =>{
+	const message = useMessage()
+	const auth = useContext(AuthContext)
+	const {loading, request, error, clearError} = useHttp()
+	const [form, setForm] = useState({
+		email: "", password: ""
+	})
+
+	useEffect(()=>{
+		message(error)
+		clearError()	
+	}, [error, message, clearError])
+
+	const changeHandler = event =>{
+		setForm({...form, [event.target.name]: event.target.value })
+	}
+
+	/**
+	 * Register handler to get an access to router
+	 * @name registerHandler
+	 * @function
+	 * @global
+	 */
+	const registerHandler = async () =>{
+		try{
+			const data = await request('/api/auth/register', 'POST', {...form})
+			console.log("Data", data)
+		}
+		catch(e){
+		}
+	}
+
+	/**
+	 * Login handler to get an access to router
+	 * @name loginHandler
+	 * @function
+	 * @global
+	 */
+	const loginHandler = async () =>{
+		try{
+			const data = await request('/api/auth/login', 'POST', {...form})
+			auth.login(data.token, data.userId)
+		}
+		catch(e){
+		}
+	}
+
+
+	return(
+		&lt;div className="form-wrapper">
+				&lt;img src={logo} className="logo-image"/>
+			&lt;Form
+				name="normal_login"
+				className="login-form"
+				initialValues={{
+					remember: true,
+				}}
+			>
+				&lt;Form.Item
+					name="username"
+					rules={[
+						{
+							required: true,
+							message: 'Please input your Username!',
+						},
+					]}
+				>
+					&lt;Input id = "email" type="text" name="email" onChange={changeHandler} prefix={&lt;UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+				&lt;/Form.Item>
+				&lt;Form.Item
+					name="password"
+					rules={[
+						{
+							required: true,
+							message: 'Please input your Password!',
+						},
+					]}
+				>
+					&lt;Input
+						id = "password" type="password" name="password" onChange={changeHandler}  prefix={&lt;LockOutlined className="site-form-item-icon" />} placeholder="Password"
+					/>
+				&lt;/Form.Item>
+				&lt;Form.Item>
+					&lt;Form.Item name="remember" valuePropName="checked" noStyle>
+						&lt;Checkbox>Remember me&lt;/Checkbox>
+					&lt;/Form.Item>
+
+					&lt;a className="login-form-forgot" href="">
+						Forgot password
+					&lt;/a>
+				&lt;/Form.Item>
+
+				&lt;Form.Item>
+					&lt;Button type="primary" htmlType="submit" className="login-form-button" value="Log in" onClick={loginHandler} disabled={loading}>
+						Log in
+					&lt;/Button>
+					&lt;Button type="primary" htmlType="submit" className="register-button" value="Register " onClick={registerHandler} disabled={loading}>
+						Register
+					&lt;/Button>
+				&lt;/Form.Item>
+			&lt;/Form>
+		&lt;/div>
+	)
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="CreationPage.html">CreationPage</a></li><li><a href="StatisticContainer.html">StatisticContainer</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AnswerModel">AnswerModel</a></li><li><a href="global.html#AnswersRouter">AnswersRouter</a></li><li><a href="global.html#App">App</a></li><li><a href="global.html#AuthPages">AuthPages</a></li><li><a href="global.html#CreateRouter">CreateRouter</a></li><li><a href="global.html#fetchSurveysHandler">fetchSurveysHandler</a></li><li><a href="global.html#GetRouter">GetRouter</a></li><li><a href="global.html#loginHandler">loginHandler</a></li><li><a href="global.html#LoginRouter">LoginRouter</a></li><li><a href="global.html#Logouthandler">Logout handler</a></li><li><a href="global.html#Main">Main</a></li><li><a href="global.html#registerHandler">registerHandler</a></li><li><a href="global.html#RegisterRouter">RegisterRouter</a></li><li><a href="global.html#start">start</a></li><li><a href="global.html#Statistics">Statistics</a></li><li><a href="global.html#Survey">Survey</a></li><li><a href="global.html#SurveyLinks">SurveyLinks</a></li><li><a href="global.html#SurveyModel">SurveyModel</a></li><li><a href="global.html#useAuth">useAuth</a></li><li><a href="global.html#useHttp">useHttp</a></li><li><a href="global.html#useMessage">useMessage</a></li><li><a href="global.html#UserModel">UserModel</a></li><li><a href="global.html#useRoutes">useRoutes</a></li><li><a href="global.html#withMyHook">withMyHook</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun May 16 2021 14:14:39 GMT+0300 (GMT+03:00)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

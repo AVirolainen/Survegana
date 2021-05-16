@@ -29,13 +29,24 @@ export const Main =()=>{
     const [surveys, setSurveys] = useState([])
     const [state, setState] = useState({collapsed: false})
 
-
+    /**
+	 * Logout handler 
+	 * @name Logout handler
+	 * @function
+	 * @global
+	 */
     const logoutHandler = (event) =>{
         auth.logout()
     }
 
     const {token} = useContext(AuthContext)
-    
+
+    /**
+	 * Fetch handler to get an access to router
+	 * @name fetchSurveysHandler
+	 * @function
+	 * @global
+	 */
     const fetchSurveys = useCallback(async () => {
         try {
             const fetched = await request('/api/survey', 'GET', null, )

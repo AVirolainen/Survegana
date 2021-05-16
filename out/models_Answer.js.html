@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Source: routes/answer.routes.js</title>
+    <title>JSDoc: Source: models/Answer.js</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Source: routes/answer.routes.js</h1>
+    <h1 class="page-title">Source: models/Answer.js</h1>
 
     
 
@@ -26,30 +26,23 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const {Router} = require('express')
-const Survey = require("../models/Survey")
-const User = require("../models/User")
-const Answer = require("../models/Answer")
-const router = Router()
+            <pre class="prettyprint source linenums"><code>const {Schema, model, Types} = require("mongoose")
+
 
 /**
- * Router (GET) that makes request to database to get available answers
- * @name AnswersRouter
- * @function
+ * Answer model for integration with mongodb
+ * @name AnswerModel
+ * @const
  * @global
  */
-router.get("/*", async(req, res)=>{
-    try{
-        const surveys = await Answer.find()
-        res.json(surveys)
-    }
-    catch (e) {
-        res.status(500).json({message : "Something is wrong "})
-    }
+
+const schema = new Schema({
+    surveyId: {type: String},
+    answers: {type: Object}
+    
 })
 
-
-module.exports = router;</code></pre>
+module.exports = model("Answer", schema)</code></pre>
         </article>
     </section>
 

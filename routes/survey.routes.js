@@ -4,6 +4,8 @@ const User = require("../models/User")
 const Answer = require("../models/Answer")
 const router = Router()
 
+
+
 router.post("/*", async(req, res)=>{
     try{
         const {info} = req.body
@@ -21,6 +23,12 @@ router.post("/*", async(req, res)=>{
     }
 })
 
+/**
+ * Router (Get) that makes request to database to get available surveys
+ * @name GetRouter
+ * @function
+ * @global
+ */
 router.get("/", async(req, res)=>{
     try{
         const surveys = await Survey.find()

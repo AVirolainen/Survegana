@@ -8,6 +8,10 @@ import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import logo from "../img/logo.png"
 import building from "../img/building.jpg";
 
+/** Function that render Auth page
+ * @function
+ * 
+*/
 export const AuthPages = ()  =>{
 	const message = useMessage()
 	const auth = useContext(AuthContext)
@@ -25,6 +29,12 @@ export const AuthPages = ()  =>{
 		setForm({...form, [event.target.name]: event.target.value })
 	}
 
+	/**
+	 * Register handler to get an access to router
+	 * @name registerHandler
+	 * @function
+	 * @global
+	 */
 	const registerHandler = async () =>{
 		try{
 			const data = await request('/api/auth/register', 'POST', {...form})
@@ -34,6 +44,12 @@ export const AuthPages = ()  =>{
 		}
 	}
 
+	/**
+	 * Login handler to get an access to router
+	 * @name loginHandler
+	 * @function
+	 * @global
+	 */
 	const loginHandler = async () =>{
 		try{
 			const data = await request('/api/auth/login', 'POST', {...form})
