@@ -14,19 +14,23 @@ app.use('/api/answers', require('./routes/answer.routes'))
 
 
 /** This function starts the server and connect database */
-async function start(){
-  try{
-    await mongoose.connect(config.get("mongoUri"), {
-      useNewUrlParser: true, 
-      useUnifiedTopology: true,
-      useCreateIndex: true
-    })
-    app.listen(PORT, () => { console.log(`Example app listening at http://localhost:${PORT}`)})
-  }catch(e){
-    console.log("Server error", e.message)
-    process.exit(1)
+  async function start(){
+    try{
+      await mongoose.connect(config.get("mongoUri"), {
+        useNewUrlParser: true, 
+        useUnifiedTopology: true,
+        useCreateIndex: true
+      })
+      app.listen(PORT, () => { console.log(`Example app listening at http://localhost:${PORT}`)})
+    }catch(e){
+      console.log("Server error", e.message)
+      process.exit(1)
+    }
   }
-}
 
-start()
+ start()
+
+
+
+module.exports = app;
 

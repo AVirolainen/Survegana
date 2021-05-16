@@ -7,7 +7,8 @@
     "start": "node app.js",
     "server": "nodemon app.js",
     "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server \" \"npm run client\""
+    "dev": "concurrently \"npm run server \" \"npm run client\"",
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -21,15 +22,25 @@
   "homepage": "https://github.com/AVirolainen/software_engineering_proj#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "chai": "^4.3.4",
     "config": "^3.3.3",
     "express": "^4.17.1",
     "express-validator": "^6.9.2",
     "jsonwebtoken": "^8.5.1",
     "materialize-css": "^1.0.0-rc.2",
+    "mocha": "^8.4.0",
+    "mockgoose": "^8.0.4",
     "mongoose": "^5.11.17"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   },
   "devDependencies": {
     "concurrently": "^5.3.0",
+    "jest": "^26.6.3",
     "jsdoc": "^3.6.7",
     "nodemon": "^2.0.7",
     "supertest": "^6.1.3"
