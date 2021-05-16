@@ -2,6 +2,12 @@ const request = require('supertest')
 const app = require('../app.js')
 const crypto = require("crypto");
 
+describe('Sample Test', () => {
+    it('should test that true === true', () => {
+      expect(true).toBe(true)
+    })
+  })
+
 describe('Register Endpoints', () => {
   it('should create a new user', async () => {
     const res = await request(app)
@@ -28,5 +34,27 @@ describe('Login Endpoints', () => {
     })
   })
 
+  describe('Survey Endpoints', () => {
+    it('should create a new answer', async () => {
+      const res = await request(app)
+        .post('/api/survey/a')
+        .send({
+          surveyId: "1",
+          answers: {}
+      })
+      expect(res.statusCode).toEqual(500)
+    })
+  })
 
+  describe('Survey Endpoints', () => {
+    it('should create a new survey', async () => {
+      const res = await request(app)
+        .post('/api/create/create')
+        .send({
+          title: "test survey",
+          pages: [],
+      })
+      expect(res.statusCode).toEqual(500)
+    })
+  })
   
